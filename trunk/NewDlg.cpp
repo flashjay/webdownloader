@@ -215,17 +215,17 @@ void CNewDlg::StartTask()
 void CNewDlg::Callback(CString cs)
 {
 	int alertTimespan = 6000;
-	CString _content;
-	_content += cs;
+	CString *_content = new CString();
+	_content->Append(cs);
 	if(cs == "")
 	{
-		_content.Append("下载成功\n");
+		_content->Append("下载成功\n");
 		//非常变态,strUrl为什么被修改?
-		_content += m_strUrl;
+		_content->Append(m_strUrl);
 		alertTimespan = 12000;
 	}
 
-	ShowNotifyWnd(m_hNotifyWnd, "WebDownoader ", _content, alertTimespan);
+	ShowNotifyWnd(m_hNotifyWnd, "WebDownoader ", *_content, alertTimespan);
 	m_PictureLoading.UnLoad();
 	((CButton *)GetDlgItem(IDC_BUTTON_DOWNLOAD))->EnableWindow(true);
 	TerminateThread(m_hThread,0);
